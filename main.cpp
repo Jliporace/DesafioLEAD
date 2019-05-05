@@ -14,9 +14,49 @@ and the second element represents the actual data acquired in that time.
 
 #include <iostream>
 #include "functions.h"
- 
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <string> 
+
+using namespace std;
+
 
 int main() {
+	vector <float> fullData;
+	//vector <float> timestamp;
+	//vector <float> sensorData;
+	int count;
+	double cell; 
+	ifstream file;
+	file.open("sensor.log");
+	if (!file) 
+	{
+    	cout << "Unable to open file sensor.log";
+    	exit(1);   // call system to stop
+	}
+	while(file >> cell)
+	{
+		fullData.push_back(cell);
+	}
+	file.close();
 	
+	/* If it is necessary to separate fullData in two vectors: timestamp[] and sensordata[] 
+	for (count = 0; count < temporaryV.size(); count++)
+	{
+		
+		if(count%2 == 0)
+		{
+			timestamp.push_back(fullData[count]);	
+		}
+		else 
+		{
+			sensorData.push_back(fullData[count]);
+		}
+	} */
+	
+	//double sizeData = sensorData.size();
+	//double sizeTimestamp = timestamp.size();
+	bool mod = modulation(2,fullData);
 	return 0;
 }
