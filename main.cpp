@@ -56,8 +56,8 @@ int main() {
 	} 
 	double sizeData = sensorData.size();
 	double sizeTimestamp = timestamp.size(); */
-	bool mod = modulation(2,fullData);
-	bool mov = movingAverage(20, fullData);
-	bool lowpass = lowPassFilter(0.1,0.02,fullData);
+	modulation(2,fullData);
+	movingAverage(20, fullData);
+	lowPassFilter(0.1,0.02,fullData);
 	return 0;
 }

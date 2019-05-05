@@ -10,7 +10,7 @@
 using namespace std;
 
 
-bool modulation(int rate, vector<float> fullData)
+void modulation(int rate, vector<float> fullData)
 // Process the sensor data with a modulation of <rate> times. Creates and writes results in file modulation.log
 
 {	
@@ -23,7 +23,7 @@ bool modulation(int rate, vector<float> fullData)
 	else 
 	{
 		printf("Couldn't open modulation.log file \n");
-		return 0;
+		return;
 	}
 	//The modulation of a vector is rate .* vector
 	for (int i = 1; i<fullData.size(); i = i+2)
@@ -32,11 +32,11 @@ bool modulation(int rate, vector<float> fullData)
 		
 	}
 	file.close();
-	return 1;
+	return;
 }
 
 
-bool movingAverage(int numSamples, vector<float> fullData)
+void movingAverage(int numSamples, vector<float> fullData)
 // Process the sensor data with a moving average of <numSamples> samples. Creates and writes results in file movingAverage.log
 {
 	fstream file;
@@ -48,7 +48,7 @@ bool movingAverage(int numSamples, vector<float> fullData)
 	else 
 	{
 		printf("Couldn't open mean.log file \n");
-		return 0;
+		return;
 	}
 	//Zeros addition to fullData in order to compute the first <numSamples> movingAverage
 	vector <int> zerosV (2*numSamples,0); 
@@ -67,10 +67,10 @@ bool movingAverage(int numSamples, vector<float> fullData)
 		
 	}
 	file.close();
-	return 1;
+	return;
 }
 
-bool lowPassFilter(float tau, float period, vector<float> fullData)
+void lowPassFilter(float tau, float period, vector<float> fullData)
 // Passes a low pass filter to the data with constant <tau> and sampling period <period>. Creates and writes results in file lowpass.log
 {
 	fstream file;
@@ -82,7 +82,7 @@ bool lowPassFilter(float tau, float period, vector<float> fullData)
 	else 
 	{
 		printf("Couldn't open lowpass.log file \n");
-		return 0;
+		return;
 	}
 	
 	//The low pass filter equation is y[k] = alpha*(u[k]+u[k+1]) - beta*y[k-1]
@@ -95,5 +95,5 @@ bool lowPassFilter(float tau, float period, vector<float> fullData)
 		file << fullData[i-1] << " " << x << endl;
 	} 
 	file.close();
-	return 1;
+	return;
 }
