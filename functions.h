@@ -67,9 +67,28 @@ bool movingAverage(int numSamples, vector<float> fullData)
 	return 1;
 }
 
-bool lowPassFilter(float tau, float period, float data[], int m)
+bool lowPassFilter(float tau, float period, vector<float> fullData)
 // Passes a low pass filter to the data with constant <tau> and sampling period <period>. Creates and writes results in file lowpass.log
 {
-	printf("Not implemented yet");
-	return 0;
+	fstream file;
+	file.open("lowpass.log", ios::out);
+	if(file.is_open())
+	{
+		printf("Creating lowpass.log file... \n");
+	}
+	else 
+	{
+		printf("Couldn't open lowpass.log file \n");
+		return 0;
+	}
+	float alpha = period/(2*tau + period);
+	float beta = (period - 2*tau)/(period + 2*tau);
+	float x = 0;
+	for (int i = 1; i < fullData.size(); i = i +2)
+	{
+		x = alpha*(fullData[i] + fullData[i-2]) - beta*x;
+		file << fullData[i-1] << " " << x << endl;
+	} 
+	file.close();
+	return 1;
 }
