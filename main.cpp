@@ -24,9 +24,6 @@ using namespace std;
 
 int main() {
 	vector <float> fullData;
-	//vector <float> timestamp;
-	//vector <float> sensorData;
-	int count;
 	double cell; 
 	ifstream file;
 	file.open("sensor.log");
@@ -37,11 +34,14 @@ int main() {
 	}
 	while(file >> cell)
 	{
-		fullData.push_back(cell);
+		fullData.push_back(cell);  //Write sensor.log elements into fullData vector 
 	}
 	file.close();
 	
 	/* If it is necessary to separate fullData in two vectors: timestamp[] and sensordata[] 
+	int count;
+	//vector <float> timestamp;
+	//vector <float> sensorData;
 	for (count = 0; count < fullData(); count++)
 	{
 		

@@ -25,6 +25,7 @@ bool modulation(int rate, vector<float> fullData)
 		printf("Couldn't open modulation.log file \n");
 		return 0;
 	}
+	//The modulation of a vector is rate .* vector
 	for (int i = 1; i<fullData.size(); i = i+2)
 	{
 		file << fullData[i-1] << " " << fullData[i]*rate << endl;
@@ -49,9 +50,11 @@ bool movingAverage(int numSamples, vector<float> fullData)
 		printf("Couldn't open mean.log file \n");
 		return 0;
 	}
-	vector <int> zerosV (2*numSamples,0);
+	//Zeros addition to fullData in order to compute the first <numSamples> movingAverage
+	vector <int> zerosV (2*numSamples,0); 
 	fullData.insert(fullData.begin(), zerosV.begin(), zerosV.end());
 	
+	//The movingAverage correspondent to the x[n] element is sum(x[n-numSamples]:x[n])/numSamples
 	for (int i = 2*numSamples + 1; i<fullData.size(); i = i+2)
 	{
 		float sum = 0;
@@ -81,6 +84,8 @@ bool lowPassFilter(float tau, float period, vector<float> fullData)
 		printf("Couldn't open lowpass.log file \n");
 		return 0;
 	}
+	
+	//The low pass filter equation is y[k] = alpha*(u[k]+u[k+1]) - beta*y[k-1]
 	float alpha = period/(2*tau + period);
 	float beta = (period - 2*tau)/(period + 2*tau);
 	float x = 0;

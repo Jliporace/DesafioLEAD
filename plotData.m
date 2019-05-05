@@ -1,5 +1,6 @@
 %                           LEAD Challenge
-% Plot data from files mean.log, lowpass.log, modulation.log and sensor.log
+% Plot data from files mean.log, lowpass.log, modulation.log, sensor.log
+% and out.log
 
 mean = load("mean.log");
 lowpass = load("lowpass.log");
