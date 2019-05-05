@@ -1,4 +1,5 @@
-/* This file contains the functions to be used in the main code for the Desafio LEAD project
+/* This file contains the functions to be used in the main code for the Desafio LEAD project. The whole project is available at: https://github.com/Jliporace/DesafioLEAD
+ 
  The vector fullData represents all the data in sensor.log file, pushed into the vector line by line: 
  the even elements represent the timestamp and the odd elements represent the sensordata. */
 

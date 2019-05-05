@@ -1,7 +1,7 @@
 /*									MainDesafioIC.cpp
 
 This program was created in order to solve the proposed challenge by LEAD lab and contains the following functions in functions.h:
-readSensorLog(), modulation(), movingAverage(), lowPassFilter() e main().
+readSensorLog(), modulation(), movingAverage(), lowPassFilter() e main(). The full project is available at: https://github.com/Jliporace/DesafioLEAD
 
 Using the functions above, the program processes sensor data, stored in the file sensor.log, and cretaes three new files:
 - modulation.log: sensor data with a 2x modulation

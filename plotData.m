@@ -1,6 +1,8 @@
-%                           LEAD Challenge
+%                          LEAD Challenge - plotData
 % Plot data from files mean.log, lowpass.log, modulation.log, sensor.log
-% and out.log
+% and out.log. 
+% The main code and functions used to generate the files are available at: 
+% https://github.com/Jliporace/DesafioLEAD
 
 mean = load("mean.log");
 lowpass = load("lowpass.log");
