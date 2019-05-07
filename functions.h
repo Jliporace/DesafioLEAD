@@ -1,7 +1,4 @@
-/* This file contains the functions to be used in the main code for the Desafio LEAD project. The whole project is available at: https://github.com/Jliporace/DesafioLEAD
- 
- The vector fullData represents all the data in sensor.log file, pushed into the vector line by line: 
- the even elements represent the timestamp and the odd elements represent the sensordata. */
+/* This file contains the functions to be used in the main code for the Desafio LEAD project. The whole project is available at: https://github.com/Jliporace/DesafioLEAD */
 
 #include <iostream>
 #include <vector>
@@ -11,7 +8,7 @@
 using namespace std;
 
 
-void modulation(int rate, vector<float> fullData)
+void modulation(int rate, vector<float> timestamp, vector<float> data)
 // Process the sensor data with a modulation of <rate> times. Creates and writes results in file modulation.log
 
 {	
@@ -27,9 +24,9 @@ void modulation(int rate, vector<float> fullData)
 		return;
 	}
 	//The modulation of a vector is rate .* vector
-	for (int i = 1; i<fullData.size(); i = i+2)
+	for (int i = 0; i<data.size(); i = i+1)
 	{
-		file << fullData[i-1] << " " << fullData[i]*rate << endl;
+		file << timestamp[i] << " " << data[i]*rate << endl;
 		
 	}
 	file.close();
@@ -37,7 +34,7 @@ void modulation(int rate, vector<float> fullData)
 }
 
 
-void movingAverage(int numSamples, vector<float> fullData)
+void movingAverage(int numSamples, vector<float> timestamp, vector<float> data)
 // Process the sensor data with a moving average of <numSamples> samples. Creates and writes results in file movingAverage.log
 {
 	fstream file;
@@ -52,26 +49,26 @@ void movingAverage(int numSamples, vector<float> fullData)
 		return;
 	}
 	//Zeros addition to fullData in order to compute the first <numSamples> movingAverage
-	vector <int> zerosV (2*numSamples,0); 
-	fullData.insert(fullData.begin(), zerosV.begin(), zerosV.end());
+	vector <int> zerosV (numSamples,0); 
+	data.insert(data.begin(), zerosV.begin(), zerosV.end());
 	
 	//The movingAverage correspondent to the x[n] element is sum(x[n-numSamples]:x[n])/numSamples
-	for (int i = 2*numSamples + 1; i<fullData.size(); i = i+2)
+	for (int i = numSamples; i<data.size(); i = i+1)
 	{
 		float sum = 0;
 		for (int j = 0; j < numSamples; j++)
 		{
-			sum = sum + fullData[i - 2*j];
+			sum = sum + data[i - j];
 		}
 		float mean = sum/numSamples;
-		file << fullData[i-1] << " " << mean << endl;
+		file << timestamp[i-numSamples] << " " << mean << endl;
 		
 	}
 	file.close();
 	return;
 }
 
-void lowPassFilter(float tau, float period, vector<float> fullData)
+void lowPassFilter(float tau, float period, vector<float> timestamp, vector<float> data)
 // Passes a low pass filter to the data with constant <tau> and sampling period <period>. Creates and writes results in file lowpass.log
 {
 	fstream file;
@@ -90,10 +87,10 @@ void lowPassFilter(float tau, float period, vector<float> fullData)
 	float alpha = period/(2*tau + period);
 	float beta = (period - 2*tau)/(period + 2*tau);
 	float x = 0;
-	for (int i = 1; i < fullData.size(); i = i +2)
+	for (int i = 0; i < data.size(); i = i +1)
 	{
-		x = alpha*(fullData[i] + fullData[i-2]) - beta*x;
-		file << fullData[i-1] << " " << x << endl;
+		x = alpha*(data[i] + data[i-1]) - beta*x;
+		file << timestamp[i] << " " << x << endl;
 	} 
 	file.close();
 	return;

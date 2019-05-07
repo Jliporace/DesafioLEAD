@@ -23,8 +23,12 @@ using namespace std;
 
 
 int main() {
-	vector <float> fullData;
-	double cell; 
+		
+	vector <float> timestamp;
+	vector <float> data;
+
+	float fdata;
+	float fcell; 
 	ifstream file;
 	file.open("sensor.log");
 	if (!file) 
@@ -32,32 +36,16 @@ int main() {
     	cout << "Unable to open file sensor.log";
     	exit(1);   // call system to stop
 	}
-	while(file >> cell)
+	while(file >> fcell >> fdata)
 	{
-		fullData.push_back(cell);  //Write sensor.log elements into fullData vector 
+		timestamp.push_back(fcell);
+		data.push_back(fdata);   
 	}
 	file.close();
 	
-	/* If it is necessary to separate fullData in two vectors: timestamp[] and sensordata[] 
-	int count;
-	//vector <float> timestamp;
-	//vector <float> sensorData;
-	for (count = 0; count < fullData(); count++)
-	{
-		
-		if(count%2 == 0)
-		{
-			timestamp.push_back(fullData[count]);	
-		}
-		else 
-		{
-			sensorData.push_back(fullData[count]);
-		}
-	} 
-	double sizeData = sensorData.size();
-	double sizeTimestamp = timestamp.size(); */
-	modulation(2,fullData);
-	movingAverage(20, fullData);
-	lowPassFilter(0.1,0.02,fullData);
+	
+	modulation(2,timestamp, data);
+	movingAverage(20, timestamp, data);
+	lowPassFilter(0.1,0.02,timestamp, data);
 	return 0;
 }
